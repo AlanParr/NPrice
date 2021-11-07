@@ -28,8 +28,8 @@ namespace NPrice
 			return GetRoundedValue(OutputPrecision).ToString($"N{OutputPrecision}");
 		}
 
-		public void AddPounds(int poundsToAdd) => _value += poundsToAdd;
-		public void AddPennies(int penniesToAdd) => _value += (penniesToAdd / 100m);
+		public void AddMajorUnit(int poundsToAdd) => _value += poundsToAdd;
+		public void AddMinorUnit(int penniesToAdd) => _value += (penniesToAdd / 100m);
 
         public static implicit operator decimal(Price price)
 		{
