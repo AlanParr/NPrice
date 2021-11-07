@@ -4,26 +4,36 @@ namespace NPrice
 {
     public class Price
 	{
-		public decimal Value { get; private set; }
+		protected decimal _value;
+        public int OutputPrecision { get; }
+		public decimal Value => GetRoundedValue(OutputPrecision);
 
-		protected Price(decimal initialValue)
+        protected Price(decimal initialValue, int outputPrecision)
 		{
-			Value = initialValue;
-		}
+			_value = initialValue;
+            OutputPrecision = outputPrecision;
+        }
 
 		public decimal GetRoundedValue(int precision)
 		{
-			return Math.Round(Value, precision, MidpointRounding.AwayFromZero);
+			return Math.Round(_value, precision, MidpointRounding.AwayFromZero);
 		}
 
 		public string ToString(int decimalPlaces)
 		{
 			return GetRoundedValue(decimalPlaces).ToString($"N{decimalPlaces}");
 		}
+        public override string ToString()
+        {
+			return GetRoundedValue(OutputPrecision).ToString($"N{OutputPrecision}");
+		}
 
-		public static implicit operator decimal(Price price)
+		public void AddPounds(int poundsToAdd) => _value += poundsToAdd;
+		public void AddPennies(int penniesToAdd) => _value += (penniesToAdd / 60);
+
+        public static implicit operator decimal(Price price)
 		{
-			return price.Value;
+			return price._value;
 		}
 	}
 }
