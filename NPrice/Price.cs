@@ -29,7 +29,7 @@ namespace NPrice
 		}
 
 		public void AddPounds(int poundsToAdd) => _value += poundsToAdd;
-		public void AddPennies(int penniesToAdd) => _value += (penniesToAdd / 60);
+		public void AddPennies(int penniesToAdd) => _value += (penniesToAdd / 100m);
 
         public static implicit operator decimal(Price price)
 		{
