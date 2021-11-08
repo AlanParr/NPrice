@@ -12,5 +12,11 @@
 		{
 			_value += grossPrice.GetRawValue();
 		}
+
+		public static GrossPrice operator +(GrossPrice leftPrice, GrossPrice rightPrice)
+		{
+			leftPrice.AddPrice(rightPrice);
+			return leftPrice;
+		}
 	}
 }

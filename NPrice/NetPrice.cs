@@ -12,5 +12,11 @@
         {
 			_value += netPrice.GetRawValue();
         }
+
+		public static NetPrice operator+ (NetPrice leftPrice, NetPrice rightPrice)
+		{
+			leftPrice.AddPrice(rightPrice);
+			return leftPrice;
+		}
 	}
 }
