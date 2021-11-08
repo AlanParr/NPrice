@@ -7,5 +7,10 @@
 		{
 			return new GrossPrice(_value * vatRate.GetAsFractionOfOne(), OutputPrecision);
 		}
+
+		public void AddPrice(NetPrice netPrice)
+        {
+			_value += netPrice.GetRawValue();
+        }
 	}
 }

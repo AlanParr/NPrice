@@ -14,26 +14,17 @@ namespace NPrice
             OutputPrecision = outputPrecision;
         }
 
-		public decimal GetRoundedValue(int precision)
-		{
-			return Math.Round(_value, precision, MidpointRounding.AwayFromZero);
-		}
+		internal decimal GetRawValue() => _value;
 
-		public string ToString(int decimalPlaces)
-		{
-			return GetRoundedValue(decimalPlaces).ToString($"N{decimalPlaces}");
-		}
-        public override string ToString()
-        {
-			return GetRoundedValue(OutputPrecision).ToString($"N{OutputPrecision}");
-		}
+        public decimal GetRoundedValue(int precision) => Math.Round(_value, precision, MidpointRounding.AwayFromZero);
 
-		public void AddMajorUnit(int poundsToAdd) => _value += poundsToAdd;
+        public string ToString(int decimalPlaces) => GetRoundedValue(decimalPlaces).ToString($"N{decimalPlaces}");
+        
+		public override string ToString() => GetRoundedValue(OutputPrecision).ToString($"N{OutputPrecision}");
+
+        public void AddMajorUnit(int poundsToAdd) => _value += poundsToAdd;
 		public void AddMinorUnit(int penniesToAdd) => _value += (penniesToAdd / 100m);
 
-        public static implicit operator decimal(Price price)
-		{
-			return price._value;
-		}
-	}
+        public static implicit operator decimal(Price price) => price._value;
+    }
 }
