@@ -8,14 +8,15 @@
 			return new GrossPrice(_value * vatRate.GetAsFractionOfOne(), OutputPrecision);
 		}
 
-		public void AddPrice(NetPrice netPrice)
-        {
-			_value += netPrice.GetRawValue();
-        }
-
 		public static NetPrice operator+ (NetPrice leftPrice, NetPrice rightPrice)
 		{
 			leftPrice.AddPrice(rightPrice);
+			return leftPrice;
+		}
+
+		public static NetPrice operator -(NetPrice leftPrice, NetPrice rightPrice)
+		{
+			leftPrice.SubtractPrice(rightPrice);
 			return leftPrice;
 		}
 	}

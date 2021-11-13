@@ -14,7 +14,17 @@ namespace NPrice
             OutputPrecision = outputPrecision;
         }
 
-		internal decimal GetRawValue() => _value;
+        public void AddPrice(Price price)
+        {
+            _value += price.GetRawValue();
+        }
+
+        public void SubtractPrice(Price price)
+        {
+            _value -= price.GetRawValue();
+        }
+
+        internal decimal GetRawValue() => _value;
 
         public decimal GetRoundedValue(int precision) => Math.Round(_value, precision, MidpointRounding.AwayFromZero);
 

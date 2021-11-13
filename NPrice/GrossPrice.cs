@@ -18,5 +18,11 @@
 			leftPrice.AddPrice(rightPrice);
 			return leftPrice;
 		}
+
+		public static GrossPrice operator -(GrossPrice leftPrice, GrossPrice rightPrice)
+		{
+			leftPrice.SubtractPrice(rightPrice);
+			return leftPrice;
+		}
 	}
 }
