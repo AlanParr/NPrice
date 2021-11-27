@@ -17,7 +17,7 @@ namespace NPrice.Tests.Unit
         public void TestImplicitConversion(TestDataObjects.NetPriceTestData testData)
         {
             var sut = new NetPrice(testData.InputValue, testData.RoundingPrecision);
-            TestCreationBase(sut, testData);
+            TestImplicitConversionBase(sut, testData);
         }
 
         [Theory]
