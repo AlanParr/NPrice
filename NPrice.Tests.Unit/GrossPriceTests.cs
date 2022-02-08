@@ -35,6 +35,5 @@ namespace NPrice.Tests.Unit
             var sut = new GrossPrice(testData.InputValue, testData.RoundingPrecision);
             TestGetToStringValueBase(sut, testData);
         }
-
     }
 }
