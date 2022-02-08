@@ -25,4 +25,24 @@
 			return leftPrice;
 		}
 	}
+
+    public class CurrencyLinkedGrossPrice : GrossPrice
+    {
+	    public Currency Currency { get; }
+
+	    public CurrencyLinkedGrossPrice(decimal initialValue, int outputPrecision, Currency currency) : base(initialValue, outputPrecision)
+	    {
+		    Currency = currency;
+	    }
+	    
+	    public new CurrencyLinkedNetPrice ToNet(TaxRate vatRate)
+	    {
+		    return new CurrencyLinkedNetPrice(Value / vatRate.GetAsFractionOfOne(), OutputPrecision, Currency);
+	    }
+
+	    public CurrencyLinkedGrossPrice ToCurrency(Currency currency)
+	    {
+		    return new CurrencyLinkedGrossPrice(Value, OutputPrecision, currency);
+	    }
+    }
 }

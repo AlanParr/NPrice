@@ -4,7 +4,7 @@ namespace NPrice
 {
     public class TaxRate
     {
-        private decimal _value;
+        private readonly decimal _value;
         public TaxRate(decimal vatRate)
         {
             _value = vatRate;
@@ -15,16 +15,16 @@ namespace NPrice
 
         public static TaxRate FromPercentage(decimal percentageValue)
         {
-            if (percentageValue == 0m) return new TaxRate(percentageValue);
-
-            return new TaxRate(percentageValue / 100);
+            return percentageValue == 0m 
+                ? new TaxRate(percentageValue) 
+                : new TaxRate(percentageValue / 100);
         }
 
         public static TaxRate FromPercentage(double percentageValue)
         {
-            if (percentageValue == 0d) return new TaxRate(Convert.ToDecimal(percentageValue));
-
-            return new TaxRate(Convert.ToDecimal(percentageValue) / 100);
+            return percentageValue == 0d 
+                ? new TaxRate(Convert.ToDecimal(percentageValue)) 
+                : new TaxRate(Convert.ToDecimal(percentageValue) / 100);
         }
     }
 }

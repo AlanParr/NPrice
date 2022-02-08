@@ -6,34 +6,44 @@ namespace NPrice.Tests.Unit
     {
         [Theory]
         [MemberData(nameof(Data))]
-        public void TestCreation(TestDataObjects.NetPriceTestData testData)
+        public void TestCreation(TestDataObjects.PriceTestData testData)
         {
-            var sut = new GrossPrice(testData.InputValue, testData.RoundingPrecision);
+            var sut = new GrossPrice(testData.NetValue, testData.RoundingPrecision);
             TestCreationBase(sut, testData);
         }
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void TestImplicitConversion(TestDataObjects.NetPriceTestData testData)
+        public void TestImplicitConversion(TestDataObjects.PriceTestData testData)
         {
-            var sut = new GrossPrice(testData.InputValue, testData.RoundingPrecision);
+            var sut = new GrossPrice(testData.NetValue, testData.RoundingPrecision);
             TestImplicitConversionBase(sut, testData);
         }
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void TestGetRoundedValue(TestDataObjects.NetPriceTestData testData)
+        public void TestGetRoundedValue(TestDataObjects.PriceTestData testData)
         {
-            var sut = new GrossPrice(testData.InputValue, testData.RoundingPrecision);
+            var sut = new GrossPrice(testData.NetValue, testData.RoundingPrecision);
             TestGetRoundedValueBase(sut, testData);
         }
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void TestGetToStringValue(TestDataObjects.NetPriceTestData testData)
+        public void TestGetToStringValue(TestDataObjects.PriceTestData testData)
         {
-            var sut = new GrossPrice(testData.InputValue, testData.RoundingPrecision);
+            var sut = new GrossPrice(testData.NetValue, testData.RoundingPrecision);
             TestGetToStringValueBase(sut, testData);
+        }
+        
+        
+        [Theory]
+        [MemberData(nameof(Data))]
+        public void TestToNetConversion(TestDataObjects.PriceTestData testData)
+        {
+            var sut = new GrossPrice(testData.GrossValue, testData.RoundingPrecision);
+            var net = new NetPrice(testData.NetValue, testData.RoundingPrecision);
+            Assert.Equal(net.Value, sut.ToNet(new TaxRate(testData.TaxRate)).Value);
         }
     }
 }
