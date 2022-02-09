@@ -14,11 +14,6 @@ namespace NPrice
             OutputPrecision = outputPrecision;
         }
 
-        public void AddPrice(Price price)
-        {
-            _value += price.GetRawValue();
-        }
-
         public void SubtractPrice(Price price)
         {
             _value -= price.GetRawValue();

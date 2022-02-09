@@ -24,6 +24,12 @@ namespace NPrice.Tests.Unit
         public override NetPrice SubtractPrice(NetPrice current, NetPrice valueToSubtract) 
             => current -= valueToSubtract;
 
+        public override NetPrice SubtractPriceWithMethod(NetPrice current, NetPrice valueToAdd)
+        {
+            current.SubtractPrice(valueToAdd);
+            return current;
+        }
+
         public NetPriceMathematicalOperationTests(ITestOutputHelper outputHelper) : base(outputHelper)
         {
         }
@@ -42,6 +48,12 @@ namespace NPrice.Tests.Unit
             return current;
         }
 
+        public override GrossPrice SubtractPriceWithMethod(GrossPrice current, GrossPrice valueToAdd)
+        {
+            current.SubtractPrice(valueToAdd);
+            return current;
+        }
+        
         public override GrossPrice SubtractPrice(GrossPrice current, GrossPrice valueToSubtract) 
             => current -= valueToSubtract;
 
@@ -57,6 +69,7 @@ namespace NPrice.Tests.Unit
         public abstract T AddPrice(T current, T valueToAdd);
         public abstract T AddPriceWithMethod(T current, T valueToAdd);
         public abstract T SubtractPrice(T current, T valueToSubtract);
+        public abstract T SubtractPriceWithMethod(T current, T valueToSubtract);
 
         public PriceMathematicalOperationTests(ITestOutputHelper outputHelper)
         {
@@ -112,6 +125,21 @@ namespace NPrice.Tests.Unit
             Assert.Equal(data.ExpectedSubtractionResult, result);
         }
 
+        [Theory]
+        [MemberData(nameof(Data))]
+        public void SubtractMultipleNetPricesWithMethod(MathematicalOperationsTestsData data)
+        {
+            var firstPrice = CreatePrice(data.Values[0], 2);
+
+            var result = firstPrice;
+            foreach (var price in data.Values.Skip(1))
+            {
+                result = SubtractPriceWithMethod(result, CreatePrice(price, 2));
+            }
+
+            Assert.IsType<T>(result);
+            Assert.Equal(data.ExpectedSubtractionResult, result);
+        }
         public static IEnumerable<object[]> Data =>
         new List<object[]> {
                 new object[]{ new MathematicalOperationsTestsData(15, 5, 10, 5) },

@@ -9,7 +9,7 @@ namespace NPrice.Tests.Unit
         public void TestCreation(TestDataObjects.PriceTestData testData)
         {
             var sut = new NetPrice(testData.NetValue, testData.RoundingPrecision);
-            TestCreationBase(sut, testData);
+            TestCreationBase(sut, testData.ExpectedNetRoundedValue);
         }
 
         [Theory]
@@ -17,7 +17,7 @@ namespace NPrice.Tests.Unit
         public void TestImplicitConversion(TestDataObjects.PriceTestData testData)
         {
             var sut = new NetPrice(testData.NetValue, testData.RoundingPrecision);
-            TestImplicitConversionBase(sut, testData);
+            TestImplicitConversionBase(sut, testData.NetValue);
         }
 
         [Theory]
@@ -25,7 +25,7 @@ namespace NPrice.Tests.Unit
         public void TestGetRoundedValue(TestDataObjects.PriceTestData testData)
         {
             var sut = new NetPrice(testData.NetValue, testData.RoundingPrecision);
-            TestGetRoundedValueBase(sut, testData);
+            TestGetRoundedValueBase(sut, testData.ExpectedNetRoundedValue, testData.RoundingPrecision);
         }
 
         [Theory]
@@ -33,9 +33,17 @@ namespace NPrice.Tests.Unit
         public void TestGetToStringValue(TestDataObjects.PriceTestData testData)
         {
             var sut = new NetPrice(testData.NetValue, testData.RoundingPrecision);
-            TestGetToStringValueBase(sut, testData);
+            TestGetToStringWithPrecisionValueBase(sut, testData.ExpectedNetToStringValue, testData.RoundingPrecision);
         }
 
+        [Theory]
+        [MemberData(nameof(Data))]
+        public void TestGetToStringValueWithoutPrecision(TestDataObjects.PriceTestData testData)
+        {
+            var sut = new NetPrice(testData.NetValue, testData.RoundingPrecision);
+            TestGetToStringValueBase(sut, testData.ExpectedNetToStringValue);
+        }
+        
         [Theory]
         [MemberData(nameof(Data))]
         public void TestToGrossConversion(TestDataObjects.PriceTestData testData)
@@ -44,5 +52,6 @@ namespace NPrice.Tests.Unit
             var gross = new GrossPrice(testData.GrossValue, testData.RoundingPrecision);
             Assert.Equal(gross.Value, sut.ToGross(new TaxRate(testData.TaxRate)).Value);
         }
+        
     }
 }
