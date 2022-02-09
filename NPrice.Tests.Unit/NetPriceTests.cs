@@ -44,6 +44,16 @@ namespace NPrice.Tests.Unit
             TestGetToStringValueBase(sut, testData.ExpectedNetToStringValue);
         }
         
+        [Fact]
+        public void ToCurrency_ResultsInCorrectObject()
+        {
+            var originalPrice = new NetPrice(12, 2);
+            var linkedPrice = originalPrice.ToCurrency(new Currency("GBP"));
+            Assert.Equal("GBP", linkedPrice.Currency.CurrencyCode);
+            Assert.Equal(12, linkedPrice.Value);
+            Assert.Equal(2, linkedPrice.OutputPrecision);
+        }
+        
         [Theory]
         [MemberData(nameof(Data))]
         public void TestToGrossConversion(TestDataObjects.PriceTestData testData)

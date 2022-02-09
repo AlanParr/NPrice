@@ -43,6 +43,16 @@ namespace NPrice.Tests.Unit
             var sut = new GrossPrice(testData.GrossValue, testData.RoundingPrecision);
             TestGetToStringValueBase(sut, testData.ExpectedGrossToStringValue);
         }
+        
+        [Fact]
+        public void ToCurrency_ResultsInCorrectObject()
+        {
+            var originalPrice = new GrossPrice(12, 2);
+            var linkedPrice = originalPrice.ToCurrency(new Currency("GBP"));
+            Assert.Equal("GBP", linkedPrice.Currency.CurrencyCode);
+            Assert.Equal(12, linkedPrice.Value);
+            Assert.Equal(2, linkedPrice.OutputPrecision);
+        }
 
         [Theory]
         [MemberData(nameof(Data))]

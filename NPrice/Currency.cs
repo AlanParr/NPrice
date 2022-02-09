@@ -2,11 +2,11 @@
 {
     public class Currency
     {
-        private readonly string _currencyCode;
+        public string CurrencyCode { get; }
 
         public Currency(string currencyCode)
         {
-            _currencyCode = currencyCode;
+            CurrencyCode = currencyCode;
         }
     }
 }

@@ -13,6 +13,9 @@
 			_value += netPrice.GetRawValue();
 		}
 
+		public CurrencyLinkedNetPrice ToCurrency(Currency currency) 
+			=> new CurrencyLinkedNetPrice(_value, OutputPrecision, currency);
+
 		public static NetPrice operator+ (NetPrice leftPrice, NetPrice rightPrice)
 		{
 			leftPrice.AddPrice(rightPrice);
@@ -40,7 +43,7 @@
 		    return new CurrencyLinkedGrossPrice(_value * vatRate.GetAsFractionOfOne(), OutputPrecision, Currency);
 	    }
 	    
-	    public CurrencyLinkedNetPrice ToCurrency(Currency currency)
+	    public new CurrencyLinkedNetPrice ToCurrency(Currency currency)
 	    {
 		    return new CurrencyLinkedNetPrice(Value, OutputPrecision, currency);
 	    }
