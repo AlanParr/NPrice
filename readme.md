@@ -3,6 +3,8 @@ Is a simple domain model for working with Net/Gross prices and Tax Rates in a st
 
 <a href="https://www.nuget.org/packages/NPrice" rel="NuHet">![NuGet](https://img.shields.io/nuget/vpre/NPrice.svg)</a>
 
+![Build](https://github.com/AlanParr/NPrice/actions/workflows/dotnet.yml/badge.svg)
+
 ## What problem does it solve?
 When working in a system that operates with gross and net prices, tax rates, etc, these often get passed around as decimals, making it easy to pass a net price in as a gross price parameter. Additionally, if you've got a price in hand, it may not always be clear what it is.
 
