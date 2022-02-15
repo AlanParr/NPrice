@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageVersion>0.0.1-alpha-currency</PackageVersion>
   </PropertyGroup>
 
   <PropertyGroup>
