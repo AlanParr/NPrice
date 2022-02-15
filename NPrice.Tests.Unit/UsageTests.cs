@@ -24,6 +24,11 @@ public class UsageTests
         };
 
         var price = new CurrencyLinkedNetPrice(databaseEntity.Price, 2, new Currency(databaseEntity.Currency));
+
+        var currencyGrossPrice = price.ToGross(new TaxRate(20m));
+
+        var simpleNetPrice = new NetPrice(databaseEntity.Price, 2);
+        simpleNetPrice.ToCurrency(new Currency(databaseEntity.Currency));
         MethodThatIsExpectingANetPrice(price);
         //Thoughts:
         // Should there be an implicit conversion from string to Currency?

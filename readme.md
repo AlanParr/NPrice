@@ -12,11 +12,6 @@ Tax rates can also often take different forms (20% can be represented as 0.2, 1.
 
 This is a very simple domain model around the concepts of pricing to add some type safety and simple conversions between different types of prices.
 
-## To Do
-* Better (and more tested) rounding to handle penny-rounding issues.
-* Add more implicit/explicit conversions to make integrating in to an existing code-base easier.
-* ~~Support creating tax rate from % (20.00)~~
-
 ## Usage
 
 Create a tax rate:
@@ -47,4 +42,34 @@ Get rounded price:
 ```csharp
 grossPrice.GetRoundedValue(2);  //Returns 12.0
 grossPrice.ToString(2);         //Returns "12.00"
+```
+
+### Currency linked prices usage
+Create a price linked to a currency:
+```csharp
+var databaseEntity = new
+{
+	Price = 24.675m,
+	Currency = "GBP"
+};
+
+var price = new CurrencyLinkedNetPrice(databaseEntity.Price, 2, new Currency(databaseEntity.Currency));
+```
+
+In the above, we have an entity which we'll pretend came from our database.
+
+We then create a CurrencyLinkedNetPrice which contains both the numerical representation of the price and the currency that it is in.
+
+
+The currency can follow the price through in to being a gross price.
+
+```csharp
+    price.ToGross(new TaxRate(20m));
+```
+
+Additionally, if you have a currency-unaware price, you can easily convert it to be currency-aware.
+
+```csharp
+    var simpleNetPrice = new NetPrice(databaseEntity.Price, 2);
+    simpleNetPrice.ToCurrency(new Currency(databaseEntity.Currency));
 ```
